@@ -8,6 +8,7 @@ import RespectMotionPreference from '@/components/RespectMotionPreference';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './styles.css';
+import { cookies } from 'next/headers';
 
 const mainFont = Work_Sans({
 	subsets: ['latin'],
@@ -28,8 +29,8 @@ export const metadata = {
 };
 
 function RootLayout({ children }) {
-	// TODO: Dynamic theme depending on user preference
-	const theme = 'light';
+	const savedTheme = cookies().get('color-theme');
+	const theme = savedTheme?.value || 'light';
 
 	return (
 		<RespectMotionPreference>
@@ -40,7 +41,7 @@ function RootLayout({ children }) {
 				style={theme === 'light' ? LIGHT_TOKENS : DARK_TOKENS}
 			>
 				<body>
-					<Header theme={theme} />
+					<Header initialTheme={theme} />
 					<main>{children}</main>
 					<Footer />
 				</body>
