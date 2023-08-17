@@ -1,8 +1,12 @@
 import { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 
 import BlogHero from '@/components/BlogHero';
 import Spinner from '@/components/Spinner/Spinner';
 import CodeSnippet from '@/components/CodeSnippet';
+
+const DivisionGroupsDemo = dynamic(() => import('@/components/DivisionGroupsDemo'));
+const CircularColorsDemo = dynamic(() => import('@/components/CircularColorsDemo'));
 
 import styles from './postSlug.module.css';
 
@@ -33,6 +37,8 @@ async function BlogPost({ params }) {
 						source={content}
 						components={{
 							pre: CodeSnippet,
+							DivisionGroupsDemo,
+							CircularColorsDemo,
 						}}
 					/>
 				</div>
