@@ -6,7 +6,8 @@ import Card from '@/components/Card';
 
 import styles from './BlogSummaryCard.module.css';
 
-function BlogSummaryCard({
+
+async function BlogSummaryCard({
   slug,
   title,
   publishedOn,
@@ -17,6 +18,8 @@ function BlogSummaryCard({
     new Date(publishedOn),
     'MMMM do, yyyy'
   );
+
+
 
   return (
     <Card className={styles.wrapper}>
