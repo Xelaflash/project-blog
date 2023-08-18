@@ -1,0 +1,30 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	max-width: var(--content-width);
+	padding: 64px var(--viewport-padding);
+	margin: 0 auto;
+}
+
+.title {
+	font-size: 3.5rem;
+	text-shadow: var(--shadow-card);
+	padding: 2rem 0;
+}
+
+.link {
+	font-size: 1.5rem;
+	text-decoration: none;
+	color: var(--color-decorative-100);
+	background: var(--color-primary-700);
+	padding: 0.5rem 1.1rem;
+	border-radius: 5px;
+}
+
+.link:hover {
+	color: var(--color-decorative-100);
+	background: var(--color-primary-900);
+	box-shadow: var(--shadow-card);
+}

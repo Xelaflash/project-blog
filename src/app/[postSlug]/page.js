@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import dynamic from 'next/dynamic';
 
 import BlogHero from '@/components/BlogHero';
@@ -17,7 +18,13 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { BLOG_TITLE } from '@/constants';
 
 export async function generateMetadata({ params }) {
-	const {frontmatter} = await loadBlogPost(params.postSlug);
+	const postData = await loadBlogPost(params.postSlug);
+
+	if (!postData) {
+		return notFound();
+	}
+
+	const { frontmatter } = postData;
 
 	return {
 		title: `${frontmatter.title} • ${BLOG_TITLE}`,
@@ -26,7 +33,13 @@ export async function generateMetadata({ params }) {
 }
 
 async function BlogPost({ params }) {
-	const {frontmatter, content} = await loadBlogPost(params.postSlug);
+	const postData = await loadBlogPost(params.postSlug);
+
+	if (!postData) {
+		return notFound();
+	}
+
+	const { frontmatter, content } = postData;
 
 	return (
 		<article className={styles.wrapper}>

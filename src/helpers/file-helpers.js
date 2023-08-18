@@ -9,9 +9,7 @@ export async function getBlogPostList() {
 	const blogPosts = [];
 
 	for (let fileName of fileNames) {
-		const rawContent = await readFile(
-			`/content/${fileName}`
-		);
+		const rawContent = await readFile(`/content/${fileName}`);
 
 		const { data: frontmatter } = matter(rawContent);
 
@@ -21,32 +19,26 @@ export async function getBlogPostList() {
 		});
 	}
 
-	return blogPosts.sort((p1, p2) =>
-		p1.publishedOn < p2.publishedOn ? 1 : -1
-	);
+	return blogPosts.sort((p1, p2) => (p1.publishedOn < p2.publishedOn ? 1 : -1));
 }
 
 export const loadBlogPost = React.cache(async function loadBlogPost(slug) {
-	console.log('reading file');
-	const rawContent = await readFile(
-		`/content/${slug}.mdx`
-	);
+	let rawContent;
+	try {
+		rawContent = await readFile(`/content/${slug}.mdx`);
+	} catch (error) {
+		return null;
+	}
 
-	const { data: frontmatter, content } =
-		matter(rawContent);
+	const { data: frontmatter, content } = matter(rawContent);
 
 	return { frontmatter, content };
 });
 
 function readFile(localPath) {
-	return fs.readFile(
-		path.join(process.cwd(), localPath),
-		'utf8'
-	);
+	return fs.readFile(path.join(process.cwd(), localPath), 'utf8');
 }
 
 function readDirectory(localPath) {
-	return fs.readdir(
-		path.join(process.cwd(), localPath)
-	);
+	return fs.readdir(path.join(process.cwd(), localPath));
 }
